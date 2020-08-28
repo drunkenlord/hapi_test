@@ -2,11 +2,12 @@ sudo: required
 os:
   - linux
   - osx
+language: node_js
+node_js:
+  - "6"
+  - "4"
 before_install:
   - npm  i
-env:
-    global:
-       - NODEEXE=process.execPath
 script:
-  - $NODEEXE test/server-test.js -- --coverage
-  - $NODEEXE test/subset-test.js -- --coverage
+  - node test/server-test.js -- --coverage
+  - node test/subset-test.js -- --coverage
