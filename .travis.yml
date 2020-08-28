@@ -4,8 +4,7 @@ os:
   - osx
 language: node_js
 node_js:
-  - "6"
-  - "4"
+  - "6.16"
 before_install:
   - npm  i
 script:
