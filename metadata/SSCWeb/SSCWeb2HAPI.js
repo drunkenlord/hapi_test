@@ -88,7 +88,6 @@ function SSCWeb2HAPI(cb) {
 		}
 	} else {
 		//if there is no cached file
-		//create a new cfile
 		getUrlo(cb);
 
 	}
