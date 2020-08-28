@@ -1,0 +1,9 @@
+sudo: required
+os:
+  - linux
+  - osx
+before_install:
+  - npm  i
+script:
+  - node test/server-test.js -- --coverage
+  - node test/subset-test.js -- --coverage

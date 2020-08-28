@@ -1,0 +1,8 @@
+{
+  "name": "hapi-server",
+  "version": "0.9.1-beta.0",
+  "devDependencies": {
+    "pkg": "^4.3.5"
+  },
+  "bin": "main.js"
+}
