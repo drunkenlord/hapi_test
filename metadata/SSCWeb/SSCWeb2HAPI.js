@@ -21,8 +21,8 @@ SSCWeb2HAPI(
 			process.exit(1);
 		}
 
-		//console.log(JSON.stringify(catalog,null,4));
-		console.log(fs.readFileSync(cfile, 'utf8'));
+		console.log(JSON.stringify(catalog,null,4));
+		//console.log(fs.readFileSync(cfile, 'utf8'));
 		//process.exit(0);
 	}
 )
@@ -88,6 +88,7 @@ function SSCWeb2HAPI(cb) {
 		}
 	} else {
 		//if there is no cached file
+		//create a new cfile
 		getUrlo(cb);
 
 	}
