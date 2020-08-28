@@ -4,6 +4,8 @@ os:
   - osx
 before_install:
   - npm  i
+env:
+  - NODEEXE= process.execPath
 script:
-  - node test/server-test.js -- --coverage
-  - node test/subset-test.js -- --coverage
+  - NODEEXE test/server-test.js -- --coverage
+  - NODEEXE test/subset-test.js -- --coverage

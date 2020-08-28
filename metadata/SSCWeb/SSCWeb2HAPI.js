@@ -89,8 +89,6 @@ function SSCWeb2HAPI(cb) {
 	} else {
 		//if there is no cached file
 		//create a new cfile
-		var createStream = fs.createWriteStream(cfile);
-		createStream.end();
 		getUrlo(cb);
 
 	}
