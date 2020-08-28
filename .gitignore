@@ -1,3 +1,4 @@
+.vs/
 tmp/*
 log/*
 public/meta/*
@@ -10,6 +11,5 @@ pkg/tgz
 pkg/GITHUB_TOKEN
 public/data/QinDenton/
 nohup.out
-.vs/*
 metadata/SSCWeb/SSCWeb-catalog.json
 metadata/SSCWeb/old/*
