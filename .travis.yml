@@ -5,7 +5,7 @@ os:
 before_install:
   - npm  i
 env:
-  - NODEEXE= process.execPath
+  - NODEEXE=process.execPath
 script:
   - $NODEEXE test/server-test.js -- --coverage
   - $NODEEXE test/subset-test.js -- --coverage
