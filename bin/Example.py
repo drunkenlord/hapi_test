@@ -15,10 +15,10 @@
 # FORMAT is either 'csv' or 'binary'. The default is 'csv'.
 #
 # Examples:
-#   python Example.py --start 1970-01-01 --stop 1970-01-01T00:10:00
-#   python Example.py --fmt binary --start 1970-01-01 --stop 1970-01-01T00:10:00
-#   python Example.py --params Time --start 1970-01-01 --stop 1970-01-01T00:10:00
-#   python Example.py --params Time,vector --start 1970-01-01 --stop 1970-01-01T00:10:00
+#   python Example.py --start 1970-01-01 --stop 1970-01-01T00:10:00 
+#   python Example.py --fmt binary --start 1970-01-01 --stop 1970-01-01T00:10:00 
+#   python Example.py --params Time --start 1970-01-01 --stop 1970-01-01T00:10:00 
+#   python Example.py --params Time,vector --start 1970-01-01 --stop 1970-01-01T00:10:00 
 
 import sys
 import struct
@@ -66,7 +66,7 @@ if dt < 60: mf=mo+1 # To output 1 record if stop < start + 60 sec
 
 # To output 1 record if stop < start + 60 sec
 dt = (stop-epoch).total_seconds()-(start-epoch).total_seconds()
-if dt < 60: mf=mo+1
+if dt < 60: mf=mo+1 
 
 scalar = False
 vector = False

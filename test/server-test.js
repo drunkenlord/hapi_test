@@ -6,7 +6,7 @@ const spawnSync = require('child_process').spawnSync;
 const nodeexe = "'" + process.execPath + "' server.js";
 const metadir = __dirname + '/../metadata';
 
-const excludes =
+const excludes = 
 	[
 		"INTERMAGNET",
 		"SuperMAG",

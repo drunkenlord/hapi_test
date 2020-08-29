@@ -8,7 +8,7 @@ const clc  = require('chalk'); // Colorize command line output
 const ver  = parseInt(process.version.slice(1).split('.')[0]);
 if (ver < 6) {
 	console.log(clc.red("!!! node.js version >= 6 required.!!! "
-				+ "node.js -v returns " + process.version
+				+ "node.js -v returns " + process.version 
 				+ ".\nConsider installing https://github.com/creationix/nvm and then 'nvm install 6'.\n"));
 	process.exit(1);
 }
@@ -94,7 +94,7 @@ for (key in config) {
 
 const FILE        = argv.file;
 const PORT        = argv.port;
-const FORCE_START = argv.ignore;
+const FORCE_START = argv.ignore; 
 const OPEN        = argv.open;
 const TEST        = argv.test;
 const VERIFY      = argv.verify;
@@ -104,7 +104,7 @@ const PLOTSERVER  = argv.plotserver;
 
 let FILES;
 if (typeof(FILE) == 'string') {
-	FILES = [FILE];
+	FILES = [FILE];	
 } else {
 	FILES = FILE;
 }
@@ -145,7 +145,7 @@ function main() {
 	// with server. This creates it.
 	function writeall(file, all) {
 		console.log(ds() + "Starting creation of " + file);
-		fs.writeFileSync(file, all, "utf8");
+		fs.writeFileSync(file, all, "utf8"); 
 		console.log(ds() + "Finished creation of " + file);
 	}
 
@@ -174,17 +174,17 @@ function main() {
 						.readFileSync(METADIR + "/all.txt")
 						.toString();
 	} else {
-		console.log(ds() + "Did not find "
+		console.log(ds() + "Did not find " 
 					+ METADIR + "/all.txt. Will generate.");
 
 		for (let i = 0; i < CATALOGS.length; i++) {
 			let s = metadata(CATALOGS[i],'server');
 			let d = metadata(CATALOGS[i],'data');
-			serverlist = serverlist
-							+ PREFIXES[i] + "/hapi,"
-							+ CATALOGS[i] + ","
-							+ CATALOGS[i] + ","
-							+ s.contact + ","
+			serverlist = serverlist 
+							+ PREFIXES[i] + "/hapi," 
+							+ CATALOGS[i] + "," 
+							+ CATALOGS[i] + "," 
+							+ s.contact + "," 
 							+ d.contact + "\n";
 		}
 	}
@@ -247,7 +247,7 @@ function main() {
 
 		if (OPEN) {
 			// Open browser window
-			var start = (process.platform == 'darwin'
+			var start = (process.platform == 'darwin' 
 							? 'open': process.platform == 'win32'
 							? 'start': 'xdg-open');
 			require('child_process').exec(start + ' ' + url);
@@ -284,7 +284,7 @@ function apiInit(CATALOGS, PREFIXES, i) {
 		app.get('*', function(req, res) {
 			if (PREFIXES.length == 1) {
 				res.status(404).send("Invalid URL. See <a href='"
-					+ PREFIXES[0] + "/hapi'>"
+					+ PREFIXES[0] + "/hapi'>" 
 					+ PREFIXES[0] + "/hapi</a>");
 			} else {
 				res.status(404).send("Invalid URL. See <a href='/'>start page</a>");
@@ -298,11 +298,11 @@ function apiInit(CATALOGS, PREFIXES, i) {
 
 	let CATALOG = CATALOGS[i];
 	let PREFIX = "/" + PREFIXES[i]
-
+	
 	let capabilities = metadata(CATALOG,"capabilities");
 	let hapiversion = capabilities["HAPI"];
 
-	console.log(ds() + clc.green("Initializing endpoints for http://localhost:"
+	console.log(ds() + clc.green("Initializing endpoints for http://localhost:" 
 					 + argv.port + PREFIX + "/hapi"));
 
 	// Serve static files in ./public/data (no directory listing provided)
@@ -374,9 +374,9 @@ function apiInit(CATALOGS, PREFIXES, i) {
 
 		// Get subsetted info response based on requested parameters.
 		// info() returns integer error code if error.
-		// TODO: Reconsider this interface to info() -
+		// TODO: Reconsider this interface to info() - 
 		// infoCheck() is more consistent with other code.
-		var header = info(req,res,CATALOG);
+		var header = info(req,res,CATALOG); 
 		if (typeof(header) === "number") {
 			error(req, res, hapiversion, 1406,
 					"At least one parameter not found in dataset.");
@@ -407,11 +407,11 @@ function apiInit(CATALOGS, PREFIXES, i) {
 		};
 
 		// Add non-standard elements in header used later in code.
-		// TODO: Not tested under https.
-		var proto = req.connection.encrypted ? 'https' : 'http';
-		header["status"]["x_request"] = proto
-										+ "://"
-										+ req.headers.host
+		// TODO: Not tested under https.	
+		var proto = req.connection.encrypted ? 'https' : 'http'; 
+		header["status"]["x_request"] = proto 
+										+ "://" 
+										+ req.headers.host 
 										+ req.originalUrl;
 		header["status"]["x_startDateRequested"] = req.query["time.min"];
 		header["status"]["x_stopDateRequested"]  = req.query["time.max"];
@@ -434,7 +434,7 @@ function apiInit(CATALOGS, PREFIXES, i) {
 			// Use requested format.
 			header["format"] = req.query["format"];
 		}
-
+		
 		if (req.query["include"]) {
 			if (req.query["include"] !== "header") {
 				error(req, res, hapiversion, 1410,
@@ -449,19 +449,19 @@ function apiInit(CATALOGS, PREFIXES, i) {
 		if (header["format"] === "binary") {res.contentType("application/octet-stream")};
 		if (header["format"] === "json")   {res.contentType("application/json")};
 
-		var fname = "id-"
-					+ req.query["id"]
-					+ "_parameters-"
-					+ req.query["parameters"]
-					+ "_time.min-"
-					+ req.query["time.min"]
-					+ "_time.max-"
-					+ req.query["time.max"]
+		var fname = "id-" 
+					+ req.query["id"] 
+					+ "_parameters-" 
+					+ req.query["parameters"] 
+					+ "_time.min-" 
+					+ req.query["time.min"] 
+					+ "_time.max-" 
+					+ req.query["time.max"] 
 					+ "." + header["format"];
 
 		if (req.query["attach"] === "false") {
 			// Allow non-standard "attach" query parameter for debugging.
-			// Content-Type of 'text' will cause browser to display data
+			// Content-Type of 'text' will cause browser to display data 
 			// instead of triggering a download dialog.
 			res.contentType("text");
 		} else {
@@ -477,7 +477,7 @@ function apiInit(CATALOGS, PREFIXES, i) {
 	app.get(PREFIX + '/*', function (req, res) {
 		console.log(req);
 		res.status(404).send(
-					"Invalid URL. See <a href='"
+					"Invalid URL. See <a href='" 
 					+ PREFIX + "/hapi'>" + PREFIX.substr(1) + "/hapi</a>");
 	})
 
@@ -499,7 +499,7 @@ function info(req,res,catalog) {
 	} else {
 		json = metadata(catalog,'info-raw',req.query.id);
 	}
-
+	
 	// Copy string metadata because (json will be modified).
 	var json = JSON.parse(JSON.stringify(json));
 
@@ -555,7 +555,7 @@ function info(req,res,catalog) {
 	// Remove nulls placed when array element is deleted
 	json.parameters = json
 						.parameters
-						.filter(function (n) {return n != undefined});
+						.filter(function (n) {return n != undefined}); 
 
 	// Return JSON string
 	return json;
@@ -565,7 +565,7 @@ function data(req,res,catalog,header,include) {
 
 	function normalizeTime(timestr) {
 
-		// Convert to YYYY-MM-DDTHH:MM:SS.FFFFFFFFFZ
+		// Convert to YYYY-MM-DDTHH:MM:SS.FFFFFFFFFZ 
 		// (nanosecond precision). All command line programs
 		// will be given this format.
 
@@ -577,7 +577,7 @@ function data(req,res,catalog,header,include) {
 		if (re.test(timestr)) {
 			var submilli = timestr.replace(/.*\.[0-9]{3}([0-9].*)Z$/,"$1");
 			var pad = "0".repeat(6-submilli.length);
-			submilli = submilli + pad;
+			submilli = submilli + pad; 
 		}
 
 		if (/^[0-9]{4}Z$/.test(timestr)) {
@@ -613,19 +613,19 @@ function data(req,res,catalog,header,include) {
 			com = com.replace("${parameters}",'');
 		}
 		com = com.replace("${format}",header["format"]);
-		return com;
+		return com;	
 	}
 
 	function columnsstr() {
 		// If command does not contain ${parameters}, assume CL program
 		// always outputs all variables. Subset the output using subset.js.
-
+		
 		let fieldstr = "";
 		if (req.query["parameters"] && !/\$\{parameters\}/.test(d.command)) {
 			var params = req.query["parameters"].split(",");
 			var headerfull = metadata(catalog,'info',req.query.id);
 			if (params[0] !== headerfull.parameters[0].name) {
-				// If time variable was not requested, add it
+				// If time variable was not requested, add it 
 				// so first column is always output.
 				params.unshift(headerfull.parameters[0].name);
 			}
@@ -676,7 +676,7 @@ function data(req,res,catalog,header,include) {
 		com = com + " --format " + header["format"];
 	} else {
 
-		com = replacevars(d.command);
+		com = replacevars(d.command); 
 
 		// See if CL program supports requested format
 		var formats = d.formats; // CL formats supported
@@ -692,24 +692,24 @@ function data(req,res,catalog,header,include) {
 		var subsetcols = false;
 		if (columns !== "") {
 			subsetcols = true;
-		}
+		}		
 		var subsettime = false;
 		if (!/\$\{start\}/.test(d.command) && !/\$\{stop\}/.test(d.command)) {
 			subsettime = true;
 		}
 
 		if (subsetcols || subsettime) {
-			com = com
-					+ " | "
+			com = com 
+					+ " | " 
 					+ config.NODEEXE
-					+ " " + __dirname
+					+ " " + __dirname 
 					+ "/lib/subset.js";
 			if (subsettime) {
 				com = com + " --start " + start;
 				com = com + " --stop " + stop;
 			}
 			if (subsetcols) {
-				com = com + " --columns " + columns;
+				com = com + " --columns " + columns;	
 			}
 		}
 	}
@@ -722,7 +722,7 @@ function data(req,res,catalog,header,include) {
 		}
 		if (d.contact) {
 			error(req, res, header["HAPI"], 1500,
-					"Problem with the data server. Please send URL to "
+					"Problem with the data server. Please send URL to " 
 					+ d.contact + ".");
 		} else {
 			error(req, res, header["HAPI"], 1500,
@@ -732,7 +732,7 @@ function data(req,res,catalog,header,include) {
 
 	console.log(ds() + "Executing: " + com);
 
-	// Call the CL command and send output.
+	// Call the CL command and send output.	
 	var coms  = com.split(/\s+/);
 	var coms0 = coms.shift();
 	var child = require('child_process')
@@ -752,7 +752,7 @@ function data(req,res,catalog,header,include) {
 
 	// TODO: Write this to log file
 	child.stderr.on('data', function (err) {
-		console.log(ds()
+		console.log(ds() 
 					+ "Command line program error message: "
 					+ clc.red(err.toString().trim()));
 	})
@@ -814,14 +814,14 @@ function data(req,res,catalog,header,include) {
 				//console.log("remainder = " + remainder);
 				bufferstr = bufferstr.slice(0,lastnl);
 			}
-		}
+		} 
 
 		if (header["format"] === "csv") {
 			res.write(buffer.toString());
 		} else if (header["format"] === "json") {
 			if (!convert) {
 				res.write(buffer.toString());
-				return;
+				return;			
 			} else {
 				// JSON requested and CL program cannot produce it.
 				// Accumulate output and send everything at once for now.
@@ -856,7 +856,7 @@ function csvTo(records,first,last,header,include) {
 	var name    = "";
 	var names   = []; // Name associated with number in each column
 	var type    = "";
-	var types   = []; // Type associated with number in each column
+	var types   = []; // Type associated with number in each column 
 	var length  = -1;
 	var lengths = [];
 	var po      = {}; // Parameter object
@@ -873,17 +873,17 @@ function csvTo(records,first,last,header,include) {
 		po[header.parameters[i].name]["type"] = header.parameters[i].type;
 		po[header.parameters[i].name]["size"] = header.parameters[i].size || [1];
 		if (po[header.parameters[i].name]["size"].length > 1) {
-			console.log(ds()
+			console.log(ds() 
 						+ "Warning. JSON for parameter "
-						+ name
-						+ " will be 1-D array instead of "
-						+ po[header.parameters[i].name]["size"].length
+						+ name 
+						+ " will be 1-D array instead of " 
+						+ po[header.parameters[i].name]["size"].length 
 						+ "-D");
-			po[header.parameters[i].name]["size"] =
+			po[header.parameters[i].name]["size"] = 
 						prod(po[header.parameters[i].name]["size"]);
 		}
 	}
-
+	
 	if (header["format"] === "json") {
 		return csv2json(records, po, names, first, last, header, include);
 	}
@@ -918,10 +918,10 @@ function csvTo(records,first,last,header,include) {
 			}
 			if (types[i] === 'integer') {
 				Nb = Nb + 4;
-			}
+			}		
 			if (types[i] === 'string' || types[i] === 'isotime') {
 				Nb = Nb + lengths[i];
-			}
+			}		
 		}
 
 		var recordbuff = new Buffer.alloc(Nr*Nb);
@@ -937,7 +937,7 @@ function csvTo(records,first,last,header,include) {
 					pos = pos + 8;
 				}
 				if (types[j] === 'integer') {
-					recordbuff.writeInt32LE(record[j],pos);
+					recordbuff.writeInt32LE(record[j],pos);	
 					pos = pos + 4;
 				}
 				if (types[j] === 'string' || types[j] === 'isotime') {
@@ -964,7 +964,7 @@ function csvTo(records,first,last,header,include) {
 			// Empty element due to trailing newline.
 			recordsarr.pop();
 		}
-
+		
 		var cols    = [];
 		var records = "";
 		var open    = "";
@@ -1011,7 +1011,7 @@ function csvTo(records,first,last,header,include) {
 						.stringify(header,null,4)
 						.replace(/}\s*$/,"") + ',\n"data":\n[\n';
 			} else {
-				open = '[\n';
+				open = '[\n';				
 			}
 		}
 		if (last == true) {
@@ -1094,7 +1094,7 @@ function queryCheck(req, res, hapiversion, catalog, type) {
 function timeCheck(header) {
 
 	// TODO: Handle less than milliseconds resolution.
-	// TODO: If one of the times had Z and the other does not,
+	// TODO: If one of the times had Z and the other does not, 
 	// should warn that all time stamps are interpreted as Z.
 
 	var times = [
@@ -1105,9 +1105,9 @@ function timeCheck(header) {
 
 	for (var i = 0;i < times.length;i++) {
 		// moment.js says YYYY-MM-DD and YYYY-DOY with no Z is
-		// "... not in a recognized RFC2822 or ISO format. moment
+		// "... not in a recognized RFC2822 or ISO format. moment 
 		// construction falls back to js Date(), which is not reliable
-		// across all browsers and versions."
+		// across all browsers and versions."		
 		// But HAPI says it is valid.
 		times[i] = times[i].replace(/Z$/,"");
 		if (times[i].length == 8 || times[i].length == 10) {
@@ -1169,7 +1169,7 @@ function timeCheck(header) {
 	}
 	if (timesms[0] < timesms[2]) { // Start requested < start available
 		return 1405;
-	}
+	} 
 	if (timesms[1] > timesms[3]) { // Stop requested > stop available
 		return 1405;
 	}
@@ -1251,7 +1251,7 @@ function exceptions() {
 		} else {
 			console.log(err.stack);
 			var tmps = ds().split("T")[0];
-			fs.appendFileSync('server-error-' + tmps + ".log", "\n"
+			fs.appendFileSync('server-error-' + tmps + ".log", "\n" 
 								+ ds() + " Uncaught Exception\n" + err.stack)
 		}
 	});
@@ -1260,8 +1260,6 @@ function exceptions() {
 function logreq(req,extra) {
 	var extra = extra || "";
 	var addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-	console.log(ds() + "Request from " + addr + ": " + "http://"
+	console.log(ds() + "Request from " + addr + ": " + "http://" 
 				+ req.headers.host + req.originalUrl + " " + extra);
 }
-
-//

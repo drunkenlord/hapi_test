@@ -58,7 +58,7 @@ var url = 'https://sscweb.gsfc.nasa.gov/cgi-bin/Locator.cgi?&SPCR='+SPCR+'&'+SPC
 request(url, function (error, response, body) {
   if (error) {
   	console.log(error);
-  	process.exit(1);
+  	process.exit(1);  	
   }
   if (response && response.statusCode != 200) {
   	process.exit(1);
@@ -67,7 +67,7 @@ request(url, function (error, response, body) {
 });
 
 function extractData(data) {
-
+	
 	// Input `data` string is output of web call (HTML page with data embedded)
 
 	// Replace space or tab with comma
