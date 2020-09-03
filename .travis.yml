@@ -10,3 +10,4 @@ before_install:
 script:
   - node test/server-test.js -- --coverage
   - node test/subset-test.js -- --coverage
+  - node test/gen_ssl.js & node test/server-test.js --https & node test/subset-test.js -- --coverage

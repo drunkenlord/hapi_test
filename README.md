@@ -32,7 +32,7 @@ A list of catalogs that are served using this sofware is given at [http://hapi-s
 <a name="Installation"></a>
 ## 2. Installation
 
-[Binary packages](https://github.com/hapi-server/server-nodejs/releases) are available for OS-X x64, Linux x64, and Linux ARMv7l (e.g., Rasberry Pi). 
+[Binary packages](https://github.com/hapi-server/server-nodejs/releases) are available for OS-X x64, Linux x64, and Linux ARMv7l (e.g., Rasberry Pi).
 
 A [Docker image](https://cloud.docker.com/repository/docker/rweigel/hapi-server) is also available.
 
@@ -107,7 +107,7 @@ In this example, we assume that the command line program that returns a dataset 
 
 The Python script [Example.py](https://github.com/hapi-server/server-nodejs/blob/master/bin/Example.py) returns HAPI-formatted CSV data (with no header) with two parameters. To serve this data, only a configuration file, [Example0.json](https://github.com/hapi-server/server-nodejs/blob/master/metadata/Example0.json), is needed. The configuration file has information that is used to call the command line program and it also has HAPI metadata that describes the output of [Example.py](https://raw.githubusercontent.com/hapi-server/server-nodejs/master/bin/Example.py). Details about the configuration file format are described in the [Metadata](#Metadata) section.
 
-The Python calling syntax of [Example.py](https://github.com/hapi-server/server-nodejs/blob/master/bin/Example.py) is 
+The Python calling syntax of [Example.py](https://github.com/hapi-server/server-nodejs/blob/master/bin/Example.py) is
 
 ```
 python Example.py
@@ -191,7 +191,7 @@ The command line program that produces HAPI CSV is [INTERMAGNET.py](https://gith
 
 ### 2.6 Serve data read by Autoplot
 
-Nearly any data file that can be read by [Autoplot](http://autoplot.org/) can be served using this server. 
+Nearly any data file that can be read by [Autoplot](http://autoplot.org/) can be served using this server.
 
 Serving data requires at most two steps:
 
@@ -228,7 +228,7 @@ List command line options:
 ```bash
 ./hapi-server -h
 
-  --help, -h    Show help 
+  --help, -h    Show help
   --file, -f    Catalog configuration file
   --port, -p    Server port [default:8999]             
   --conf, -c    Server configuration file
@@ -244,7 +244,7 @@ Basic usage:
 ./hapi-server --file metdata/TestData.json
 ```
 
-Starts HAPI server at [http://localhost:8999/TestData/hapi](http://localhost:8999/hapi) and serves datasets specified in the catalog [./metadata/TestData.json](https://github.com/hapi-server/server-nodejs/blob/master/metadata/TestData.json). 
+Starts HAPI server at [http://localhost:8999/TestData/hapi](http://localhost:8999/hapi) and serves datasets specified in the catalog [./metadata/TestData.json](https://github.com/hapi-server/server-nodejs/blob/master/metadata/TestData.json).
 
 Mutiple catalogs can be served by providing multiple catalog files on the command line:
 
@@ -271,7 +271,7 @@ And the page at `http://localhost:8999/` will point to these two URLs.
 
 ### 4.1 `conf/config.json`
 
-The variables `HAPISERVERPATH`, `HAPISERVERHOME`, `NODEEXE`, and `PYTHONEXE` can be set in `conf/config.json` or as environment variables. These variables can be used in commands, files, and URLs in the server metadata (the file passed using the command-line `--file` switch). 
+The variables `HAPISERVERPATH`, `HAPISERVERHOME`, `NODEEXE`, and `PYTHONEXE` can be set in `conf/config.json` or as environment variables. These variables can be used in commands, files, and URLs in the server metadata (the file passed using the command-line `--file` switch).
 
 The default configuration file is `conf/config.json` and this location changed using a command line argument, e.g.,
 
@@ -315,7 +315,7 @@ is read and relative paths in `TestData.json` have `/home/username/` prepended.
 
 **`PYTHONEXE`**
 
-This is the command used to call Python. By default, it is `python`. If `python` is not in the path, this can be set using a relative or absolute path. Python is used by several of the demonstration catalogs. 
+This is the command used to call Python. By default, it is `python`. If `python` is not in the path, this can be set using a relative or absolute path. Python is used by several of the demonstration catalogs.
 
 Example:
 
@@ -371,13 +371,13 @@ location /servers {
 <a name="Metadata"></a>
 ## 5. Metadata
 
-The metadata required for this server is similar to the `/catalog` and `/info` response of a HAPI server. 
+The metadata required for this server is similar to the `/catalog` and `/info` response of a HAPI server.
 
 * Example HAPI [`/catalog`](http://hapi-server.org/servers/TestData/hapi/catalog) response
 * Example HAPI [`/info`](http://http://hapi-server.org/servers/TestData/hapi/info?id=dataset1) response
 
 The server requires that the `/catalog` response is combined with the `/info` response for all datasets in the catalog in single JSON catalog configuration file. Additional information about how to generate data must also be included in this JSON file.
- 
+
 The top-level structure of the configuration file is
 
 ```
@@ -387,7 +387,7 @@ The top-level structure of the configuration file is
 		"prefix": "",
 		"landing": ""
 	},
-	"catalog": array or string // See section 5.2 
+	"catalog": array or string // See section 5.2
 	"data": { // See section 5.3
 	    "command": "Command line template",
 	     or
@@ -409,7 +409,7 @@ The top-level structure of the configuration file is
 	    "testurls": [
 	    		{
 		    		"url": string,  
-		    		"Nlines": integer, 
+		    		"Nlines": integer,
 		    		"Nbytes": integer,  
 		    		"Ncommas": integer
 	    		},
@@ -467,15 +467,15 @@ By default, the page served is [`$HAPISERVERPATH/public/default.htm`](https://gi
 
 ### 5.2 `catalog`
 
-The `catalog` node can be either a string or an array. 
+The `catalog` node can be either a string or an array.
 
 In the case that it is an array, it should contain either the combined HAPI `/catalog` and `/info` response (5.2.1) or a `/catalog` response with references to the `\info` response (5.2.1).
 
-In the case that it is a string (5.2.3), the string is either a file containing a catalog array or a command line template that returns a catalog array. 
+In the case that it is a string (5.2.3), the string is either a file containing a catalog array or a command line template that returns a catalog array.
 
 #### 5.2.1 Combined HAPI `/catalog` and `/info` object
 
-If `catalog` is an array, it should have the same format as a HAPI `/catalog` response (each object in the array has an `id` property and and optional `title` property) **with the addition** of an `info` property that is the HAPI response for that `id`, e.g., `/info?id=dataset1`. 
+If `catalog` is an array, it should have the same format as a HAPI `/catalog` response (each object in the array has an `id` property and and optional `title` property) **with the addition** of an `info` property that is the HAPI response for that `id`, e.g., `/info?id=dataset1`.
 
 ```json
 "catalog":
@@ -514,7 +514,7 @@ Examples of this type of catalog include
 The `info` value can be a path to a `info` JSON file
 
 ```json
-"catalog": 
+"catalog":
  [
 	{
 		"id": "dataset1",
@@ -530,7 +530,7 @@ The `info` value can be a path to a `info` JSON file
 ```
 See also [Example3.json](https://github.com/hapi-server/server-nodejs/blob/master/metadata/Example3.json).
 
-Alternatively, the metadata for each dataset may be produced by execution of a command line program for each dataset. For example, in the following, `program1` should result in a HAPI JSON response from `/info?id=dataset1` to `stdout`. Before execution, the string `${id}`, if found, is replaced with the requested dataset ID. Execution of `program2` should produce the HAPI JSON corresponding to the query `/info?id=dataset2`. 
+Alternatively, the metadata for each dataset may be produced by execution of a command line program for each dataset. For example, in the following, `program1` should result in a HAPI JSON response from `/info?id=dataset1` to `stdout`. Before execution, the string `${id}`, if found, is replaced with the requested dataset ID. Execution of `program2` should produce the HAPI JSON corresponding to the query `/info?id=dataset2`.
 
 ```json
 "catalog":
@@ -538,7 +538,7 @@ Alternatively, the metadata for each dataset may be produced by execution of a c
 	{
 		"id": "dataset1",
 		"title": "a dataset",
-		"info": "bin/program --id ${id}" 
+		"info": "bin/program --id ${id}"
 	},
 	{
 		"id": "dataset2",
@@ -557,7 +557,7 @@ The `catalog` value can be a command line program that generates a fully resolve
 "catalog": "program --arg1 val1 ..."
 ```
 
-The command line command should return the response of an `/info` query (with no `id` argument). 
+The command line command should return the response of an `/info` query (with no `id` argument).
 
 The path to a fully resolved catalog can also be given. See also [Example5.json](https://github.com/hapi-server/server-nodejs/blob/master/metadata/Example4.json).
 
@@ -569,9 +569,9 @@ The path to a fully resolved catalog can also be given. See also [Example5.json]
 ### 6.1 Installation
 Install [nodejs](https://nodejs.org/en/download/) (tested with v8) using either the [standard installer](https://nodejs.org/en/download/) or [NVM](https://github.com/creationix/nvm#install--update-script).
 
-<details> 
+<details>
   <summary>Show NVM installation notes</summary>
- 
+
 See also https://github.com/nvm-sh/nvm#install--update-script
 
 ```bash
@@ -595,9 +595,19 @@ cd server-nodejs; npm install
 # Start server
 node server.js
 
-# Run tests; Python 2.7+ required for certain tests.
-npm test
-```
+# Starting the HTTPS Server
+
+# The Usage of --https flag triggers the HTTPS server. The --cert and  --key flags are used to explicitly specify the ssl certificate paths.
+# If --https flag is not provided the http server shall be launched with default certificates present in the ssl folder. If the given path of certificates do not exists, then the process terminates.
+
+# Generate the certificates
+node test/gen_ssl.js
+
+#Launch the HTTPS server
+./hapi-server --https --cert certPath --key keyPath
+
+#Run the test suite on top of HTTPS server
+npm run-script test-https
 
 <a name="Contact"></a>
 ## 7. Contact

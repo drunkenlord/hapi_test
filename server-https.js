@@ -17,10 +17,27 @@ process.on('SIGINT', function() {
 	process.exit(1);
 });
 
-
 const express  = require('express'); // Client/server library
-// const app      = express();
-// const server   = require("http").createServer(app);
+const app      = express();
+const args = require('minimist')(process.argv.slice(2));
+console.log("key : "+args['key'])
+console.log("cert : "+args['cert'])
+
+if(args['key'] != undefined && args['cert'] != undefined) {
+  console.log("starting with path");
+  options = {
+   key:  fs.readFileSync(args['key']),
+   cert: fs.readFileSync(args['cert'])
+ };
+} else {
+  console.log("starting with default");
+  options = {
+  key:  fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+  };
+}
+
+const server   = require("https").createServer(options,app);
 const compress = require('compression'); // Express compression module
 const moment   = require('moment'); // Time library http://moment.js
 const yargs    = require('yargs');
@@ -49,12 +66,8 @@ if (/server$/.test(process.execPath)) {
 let argv = yargs
 			.strict()
 			.help()
-			.describe('https','ishttps')
+      .describe('https','ishttps')
 			.alias('https','https')
-			.describe('cert','certPath')
-			.alias('cert','cert')
-			.describe('key','keyPath')
-			.alias('key','key')
 			.describe('file','Catalog configuration file or file pattern')
 			.alias('file','f')
 			.describe('port','Server port')
@@ -110,48 +123,16 @@ const VERIFIER    = argv.verifier;
 const PLOTSERVER  = argv.plotserver;
 const HTTPS       = argv.https;
 
-const app      = express();
-const args = require('minimist')(process.argv.slice(2));
-console.log("key : "+args['key'])
-console.log("cert : "+args['cert'])
-var options = {};
-var server = "";
-
-if(HTTPS!= undefined){
-if(args['key'] != undefined && args['cert'] != undefined) {
-	if(fs.existsSync(args['key']) && fs.existsSync(args['cert'])) {
-  console.log("starting with path");
-  options = {
-   key:  fs.readFileSync(args['key']),
-   cert: fs.readFileSync(args['cert'])
- };
-
- server = require("https").createServer(options, app);
-} else {
-  console.log("Invalid SSL Path!");
-	process.exit(1);
-}
-} else {
-	console.log("starting with default");
-  options = {
-  key:  fs.readFileSync('./ssl/key.pem'),
-  cert: fs.readFileSync('./ssl/cert.pem')
-  };
-	server = require("https").createServer(options, app);
-}
-} else {
-  console.log("starting HTTP Server");
-   server = require("http").createServer(app);
-}
-
-
-
 let FILES;
 if (typeof(FILE) == 'string') {
 	FILES = [FILE];
 } else {
 	FILES = FILE;
 }
+
+
+
+
 
 // Deal with file patterns.
 const expandfiles = require('./lib/expandfiles.js').expandfiles;
