@@ -1286,7 +1286,7 @@ function errorHandler(err, req, res, next) {
 	fs.appendFileSync(LOGDIR + '/server-error-' + tmps + ".log",msg + "\n" + err.stack);
 }
 
-// Errors in applicatio
+// Errors in application
 function exceptions() {
 	process.on('uncaughtException', function(err) {
 		if (err.errno === 'EADDRINUSE') {
