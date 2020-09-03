@@ -1,4 +1,4 @@
-const fs   = require('fs');
+\const fs   = require('fs');
 const path = require("path");
 const clc  = require('chalk');
 const spawnSync = require('child_process').spawnSync;
@@ -17,7 +17,7 @@ const excludes =
 	];
 
 const args = require('minimist')(process.argv.slice(2));
-var isHttps=args['https'];
+var isHttps=args['https']; //This will be true if the --https flag is given
 
 console.log("HTTPS enabled :  "+ isHttps);
 
@@ -59,6 +59,7 @@ let fails = 0;
 for (var i = 0; i < files.length; i++) {
 	// Run node server.js --test -f metadata/CATALOG.json
 	if(isHttps){
+         //The server shall be called --https flag with isHttps is true
 		let comt = nodeexe + " --test --https -f " + metadir + "/" + files[i];
 		fails = fails + execute(comt,2*i);
 

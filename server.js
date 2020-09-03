@@ -19,8 +19,6 @@ process.on('SIGINT', function() {
 
 
 const express  = require('express'); // Client/server library
-// const app      = express();
-// const server   = require("http").createServer(app);
 const compress = require('compression'); // Express compression module
 const moment   = require('moment'); // Time library http://moment.js
 const yargs    = require('yargs');
@@ -118,9 +116,10 @@ var options = {};
 var server = "";
 
 if(HTTPS!= undefined){
+	//If HTTPs is true, checks for the path of certificates
 if(args['key'] != undefined && args['cert'] != undefined) {
+	//If the path is valid, server shall be started with specifed path options
 	if(fs.existsSync(args['key']) && fs.existsSync(args['cert'])) {
-  console.log("starting with path");
   options = {
    key:  fs.readFileSync(args['key']),
    cert: fs.readFileSync(args['cert'])
@@ -128,11 +127,12 @@ if(args['key'] != undefined && args['cert'] != undefined) {
 
  server = require("https").createServer(options, app);
 } else {
+	//else process shall be existed
   console.log("Invalid SSL Path!");
 	process.exit(1);
 }
 } else {
-	console.log("starting with default");
+	//If there is not path provided, default certificates shall be used
   options = {
   key:  fs.readFileSync('./ssl/key.pem'),
   cert: fs.readFileSync('./ssl/cert.pem')
@@ -140,6 +140,7 @@ if(args['key'] != undefined && args['cert'] != undefined) {
 	server = require("https").createServer(options, app);
 }
 } else {
+	//If there is no --https flag, HTTP server shall be started
   console.log("starting HTTP Server");
    server = require("http").createServer(app);
 }
