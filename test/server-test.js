@@ -1,4 +1,4 @@
-\const fs   = require('fs');
+const fs   = require('fs');
 const path = require("path");
 const clc  = require('chalk');
 const spawnSync = require('child_process').spawnSync;
