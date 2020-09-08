@@ -17,7 +17,6 @@ var testa = [
 	}
 ]
 
-
 console.log('Subsetting tests');
 console.log('________________');
 const clc = require('chalk');

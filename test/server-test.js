@@ -23,7 +23,7 @@ console.log("HTTPS enabled :  "+ isHttps);
 
 files = filelist(metadir, excludes);
 
-function execute(com,i) {
+function execute(com,i){
 	let prefix = "Test " + (i+1) + "/" + (2*files.length) + ": ";
 	process.stdout.write(clc.blue(prefix) + com + "\n");
 	let child = spawnSync('sh', ['-c', com], {stdio: 'pipe'});

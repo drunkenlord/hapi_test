@@ -19,25 +19,13 @@ process.on('SIGINT', function() {
 
 const express  = require('express'); // Client/server library
 const app      = express();
-const args = require('minimist')(process.argv.slice(2));
-console.log("key : "+args['key'])
-console.log("cert : "+args['cert'])
-
-if(args['key'] != undefined && args['cert'] != undefined) {
-  console.log("starting with path");
-  options = {
-   key:  fs.readFileSync(args['key']),
-   cert: fs.readFileSync(args['cert'])
- };
-} else {
-  console.log("starting with default");
-  options = {
-  key:  fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+const https = require('https');
+options = {
+  key:  fs.readFileSync('./ssl/key.pem'),
+  cert: fs.readFileSync('./ssl/cert.pem')
   };
-}
+const server = https.createServer(options, app);
 
-const server   = require("https").createServer(options,app);
 const compress = require('compression'); // Express compression module
 const moment   = require('moment'); // Time library http://moment.js
 const yargs    = require('yargs');
@@ -66,8 +54,6 @@ if (/server$/.test(process.execPath)) {
 let argv = yargs
 			.strict()
 			.help()
-      .describe('https','ishttps')
-			.alias('https','https')
 			.describe('file','Catalog configuration file or file pattern')
 			.alias('file','f')
 			.describe('port','Server port')
@@ -121,7 +107,6 @@ const VERIFY      = argv.verify;
 const LOGDIR      = argv.logdir;
 const VERIFIER    = argv.verifier;
 const PLOTSERVER  = argv.plotserver;
-const HTTPS       = argv.https;
 
 let FILES;
 if (typeof(FILE) == 'string') {
@@ -129,10 +114,6 @@ if (typeof(FILE) == 'string') {
 } else {
 	FILES = FILE;
 }
-
-
-
-
 
 // Deal with file patterns.
 const expandfiles = require('./lib/expandfiles.js').expandfiles;
@@ -252,36 +233,38 @@ function main() {
 
 	apiInit(CATALOGS, PREFIXES);
 
+
+	
+
 	// TODO: This should be a callback to apiInit.
-	app.listen(argv.port, function () {
+	server.listen(argv.port, function () {
 
 		console.log(ds() + clc.blue("Listening on port " + argv.port));
 
-		var url = 'http://localhost:' + argv.port;
+		var url = 'https://localhost:' + argv.port;
 		console.log(ds() + "HAPI server list is at");
-		console.log(ds() + "   http://localhost:" + argv.port);
+		console.log(ds() + "   https://localhost:" + argv.port);
 		console.log(ds() + "Listed datasets are at");
 		for (var i = 0;i < CATALOGS.length;i++) {
-			console.log(ds() + "  http://localhost:" + argv.port + "/" + PREFIXES[i] + "/hapi");
+			console.log(ds() + "  https://localhost:" + argv.port + "/" + PREFIXES[i] + "/hapi");
 		}
 
 		console.log(ds() + "To open a browser at " + url + ", use the --open option.");
 		console.log(ds() + "To run test URLs and exit, use the --test option.");
 		console.log(ds() + "To run command-line verification tests and exit, use the --verify option.");
 
-
-		if (OPEN) {
+	if (OPEN) {
 			// Open browser window
-			var start = (process.platform == 'darwin'
+			var start = (process.platform == 'darwin' 
 							? 'open': process.platform == 'win32'
 							? 'start': 'xdg-open');
 			require('child_process').exec(start + ' ' + url);
 		}
-
-		if (TEST) {
+			if (TEST) {
 			// Exits with signal 0 or 1
 			test.urls(CATALOGS, PREFIXES, url, TEST);
 		}
+
 		if (VERIFY) {
 			// TODO: This only verifies first
 			let s = metadata(PREFIXES[0],'server');
@@ -293,6 +276,8 @@ function main() {
 				verify(url + "/" + PREFIXES[0] + "/hapi");
 			}
 		}
+
+		
 	})
 }
 
@@ -327,7 +312,7 @@ function apiInit(CATALOGS, PREFIXES, i) {
 	let capabilities = metadata(CATALOG,"capabilities");
 	let hapiversion = capabilities["HAPI"];
 
-	console.log(ds() + clc.green("Initializing endpoints for http://localhost:"
+	console.log(ds() + clc.green("Initializing endpoints for https://localhost:"
 					 + argv.port + PREFIX + "/hapi"));
 
 	// Serve static files in ./public/data (no directory listing provided)

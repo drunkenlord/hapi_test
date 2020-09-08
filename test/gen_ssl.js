@@ -1,7 +1,5 @@
 //This file will generate the ssl certificates in the ssl folder.
 const { exec } = require('child_process');
-const fs   = require('fs');
-const path = require("path");
 
 var gen_ssl = (function(callback) {
   //The gen.sh script generates the SSL certificates.

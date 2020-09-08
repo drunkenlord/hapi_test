@@ -7,10 +7,6 @@ versionmin="6"
 # From https://unix.stackexchange.com/a/76518
 path=$(exec 2>/dev/null;cd -- $(dirname "$0"); unset PWD; /usr/bin/pwd || /bin/pwd || pwd)
 
-
-
-
-
 if test "$1" = "test"; then
     # ./hapi-server test
     com="$path/test/server-test.js $@"
@@ -18,9 +14,6 @@ else
     # ./hapi-server [server.js args]
     com="$path/server.js $@"
 fi
-
-
-
 
 # Use node in path if version > versionmin
 if command -v node > /dev/null 2>&1; then
