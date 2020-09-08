@@ -7,7 +7,7 @@ language: node_js
 node_js:
   - "6.16"
 before_install:
-  - npm  ci
+  - npm  i
 script:
   - npm run-script test-https -- --coverage
   - node test/server-test.js -- --coverage
