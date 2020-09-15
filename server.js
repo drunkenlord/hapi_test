@@ -272,7 +272,7 @@ function main() {
 
 
 	if(HTTPS!= undefined){
-
+//In-case of HTTPS, server.listen shall be used. app.listen() can only listen to HTTP requests
 	server.listen(argv.port, function () {
 
 		console.log(ds() + clc.blue("Listening on port " + argv.port));
@@ -291,7 +291,7 @@ function main() {
 
 	if (OPEN) {
 			// Open browser window
-			var start = (process.platform == 'darwin' 
+			var start = (process.platform == 'darwin'
 							? 'open': process.platform == 'win32'
 							? 'start': 'xdg-open');
 			require('child_process').exec(start + ' ' + url);
@@ -313,10 +313,11 @@ function main() {
 			}
 		}
 
-		
+
 	})
 
 	} else {
+		//In case of HTTP connection
 		app.listen(argv.port, function () {
 
 		console.log(ds() + clc.blue("Listening on port " + argv.port));
@@ -359,7 +360,7 @@ function main() {
 		}
 	})
 	}
-	
+
 }
 
 function apiInit(CATALOGS, PREFIXES, i) {
