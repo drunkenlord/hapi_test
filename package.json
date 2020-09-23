@@ -20,6 +20,7 @@
     "chalk": "^2.4.1",
     "command-exists": "^1.2.2",
     "compression": "^1.6.2",
+    "cross-spawn": "^7.0.3",
     "express": "^4.15.3",
     "glob-fs": "*",
     "hapi-server-ui": "git+https://github.com/hapi-server/server-ui.git#master",
