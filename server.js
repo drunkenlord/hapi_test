@@ -25,6 +25,8 @@ const yargs    = require('yargs');
 
 const metadata = require('./lib/metadata.js').metadata;
 const prepmetadata = require('./lib/metadata.js').prepmetadata;
+const { execSync } = require('child_process');
+
 
 // Test commands and urls
 const test = require('./lib/test.js');
@@ -129,6 +131,16 @@ if(args['key'] != undefined && args['cert'] != undefined) {
 }
 } else {
 	//If there is not path provided, default certificates shall be used
+
+	var yourscript = execSync('sh ./ssl/gen.sh',
+	        (error, stdout, stderr) => {
+	            if (error !== null) {
+	                console.log(`exec error: ${error}`);
+	            }
+
+
+	        });
+					
   options = {
   key:  fs.readFileSync('./ssl/key.pem'),
   cert: fs.readFileSync('./ssl/cert.pem')

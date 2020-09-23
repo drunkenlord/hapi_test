@@ -127,19 +127,24 @@ function makeHAPI(jsonraw, cb) {
 
 			var type = paraminfo[5].replace(/"/g, "");
 			//console.log(catalog[i]["info"]["parameters"][j]["type"],type,parseInt(type.replace(/%|s/,"")));
+		 
+			//Trimming the leading white spaces before comparison
+			type = type.trim();
 
 			if (/f$/.test(type)) {
-					catalog[i]["info"]["parameters"][j]["type"] = "double";
-				}
-				if (/d$/.test(type)) {
-					catalog[i]["info"]["parameters"][j]["type"] = "integer";
-				}
-				if (/s$/.test(type)) {
-					let len = parseInt(type.replace(/%|s/,""));
-					catalog[i]["info"]["parameters"][j]["type"] = "string";
-					catalog[i]["info"]["parameters"][j]["length"] = len;
-				}
+			  catalog[i]["info"]["parameters"][j]["type"] = "double";
+		  }
+		  if (/d$/.test(type)) {
+			  catalog[i]["info"]["parameters"][j]["type"] = "integer";
+		  }
+		  if (/s$/.test(type)) {
+			  let len = parseInt(type.replace(/%|s/,""));
+			  catalog[i]["info"]["parameters"][j]["type"] = "string";
+			  catalog[i]["info"]["parameters"][j]["length"] = len;
+		  }
+           
 		}
+		
 
 		var Time = {
 			"name": "Time",
@@ -163,3 +168,4 @@ function makeHAPI(jsonraw, cb) {
 	}
 	cb(null, catalog);
 }
+

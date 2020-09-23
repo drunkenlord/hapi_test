@@ -2,19 +2,43 @@ const fs   = require('fs');
 const path = require("path");
 const clc  = require('chalk');
 const spawnSync = require('child_process').spawnSync;
+const http = require('http');
+const { execSync } = require('child_process');
 
 const nodeexe = "'" + process.execPath + "' server.js";
 const metadir = __dirname + '/../metadata';
 
 const excludes =
-	[
-		"INTERMAGNET",
-		"SuperMAG",
-		"AutoplotExample1",
-		"AutoplotExample2",
-		"TestData3.0",
-		"TestDataBad"
-	];
+[
+	"INTERMAGNET",
+	"SuperMAG",
+	"AutoplotExample1",
+	"AutoplotExample2",
+	"TestData3.0",
+	"TestDataBad"
+];
+
+// "Example0",
+// "Example1",
+// "Example2",
+// "Example3",
+// "Example4",
+// "Example5",
+// "Example6",
+// "Example8",
+// "QinDenton",
+// "TestData2.1",
+// "TestData3.0"
+
+
+var prepareCatalog= execSync('node ./metadata/getCatalogData.js',
+				(error, stdout, stderr) => {
+						if (error !== null) {
+								console.log(`exec error: ${error}`);
+						} else {
+							console.log('Catalogs Generated Successfully!')
+						}
+				});
 
 const args = require('minimist')(process.argv.slice(2));
 var isHttps=args['https']; //This will be true if the --https flag is given
