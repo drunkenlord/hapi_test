@@ -1,0 +1,49 @@
+
+2020-09-23T02:24:36.120Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
+2020-09-23T02:24:38.201Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
+2020-09-23T02:24:39.661Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
+2020-09-23T02:24:41.086Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
+2020-09-23T02:24:42.657Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
+2020-09-23T02:24:44.238Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
+2020-09-23T02:24:50.365Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
+2020-09-23T02:24:51.942Z [server]  Uncaught Exception
+TypeError: Cannot read property 'id' of undefined
+    at createcat (C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:297:25)
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:284:5
+    at C:\Users\ksred\Desktop\test\server-nodejs-master\lib\metadata.js:258:5
+    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:61:3)
