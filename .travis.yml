@@ -2,10 +2,12 @@ sudo: required
 
 os:
   - windows
+  - linux
+  - osx
 
 language: node_js
 node_js:
-  - "6.0"
+  - "6.10.2"
 before_install:
   - npm  i
 script:
