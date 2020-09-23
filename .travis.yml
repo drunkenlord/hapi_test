@@ -2,8 +2,6 @@ sudo: required
 os:
   - linux
   - osx
-  - windows
-
 language: node_js
 node_js:
   - "6.16"
