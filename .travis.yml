@@ -4,10 +4,8 @@ os:
   - windows
 
 language: node_js
-node_js:
-  - "6.16"
+
 before_install:
-  - npm install --global windows-build-tools
   - npm  i
 script:
   - npm run-script test-https -- --coverage
