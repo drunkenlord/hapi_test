@@ -2,9 +2,7 @@ sudo: required
 
 os:
   - windows
-  - linux
-  - osx
-
+  
 language: node_js
 node_js:
   - "12.18.4"
