@@ -7,7 +7,7 @@ os:
 
 language: node_js
 node_js:
-  - "6.1.0"
+  - "12.18.4"
 before_install:
   - npm  i
 script:
