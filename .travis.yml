@@ -2,10 +2,10 @@ sudo: required
 
 os:
   - windows
-  
+
 language: node_js
 node_js:
-  - "12.18.4"
+  - "8.11.3"
 before_install:
   - npm  i
 script:
