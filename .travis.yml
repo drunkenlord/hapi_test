@@ -4,7 +4,17 @@ jobs:
     - os: linux
       language: node_js
       node_js:
+        - "6.16"
+
+    - os: windows
+      language: node_js
+      node_js:
         - "12.18.4"
+
+    - os: osx
+      language: node_js
+      node_js:
+        - "6.16"
 
 
 before_install:
