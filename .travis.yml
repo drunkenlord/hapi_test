@@ -1,4 +1,11 @@
 sudo: required
+notifications:
+  email:
+    recipients:
+      - multiclasher@gmail.com
+      - drunkenlord9@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
 jobs:
   include:
     - os: linux
@@ -9,7 +16,7 @@ jobs:
     - os: windows
       language: node_js
       node_js:
-        - "12.18.4"
+        - "8.11.3"
 
     - os: osx
       language: node_js

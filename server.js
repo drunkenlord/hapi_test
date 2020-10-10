@@ -22,11 +22,9 @@ const app      = express();
 const compress = require('compression'); // Express compression module
 const moment   = require('moment'); // Time library http://moment.js
 const yargs    = require('yargs');
-
+const { execSync } = require('child_process');
 const metadata = require('./lib/metadata.js').metadata;
 const prepmetadata = require('./lib/metadata.js').prepmetadata;
-const { execSync } = require('child_process');
-
 
 // Test commands and urls
 const test = require('./lib/test.js');
@@ -130,16 +128,15 @@ if(args['key'] != undefined && args['cert'] != undefined) {
 	process.exit(1);
 }
 } else {
-	//If there is not path provided, default certificates shall be used
-
+	//If there is not path provided, certificates shall be generated and used
 	var yourscript = execSync('sh ./ssl/gen.sh',
-	        (error, stdout, stderr) => {
-	            if (error !== null) {
-	                console.log(`exec error: ${error}`);
-	            }
+	(error, stdout, stderr) => {
+		if (error !== null) {
+			console.log(`exec error: ${error}`);
+		}
 
 
-	        });
+	});
 
   options = {
   key:  fs.readFileSync('./ssl/key.pem'),
@@ -303,7 +300,7 @@ function main() {
 
 	if (OPEN) {
 			// Open browser window
-			var start = (process.platform == 'darwin'
+			var start = (process.platform == 'darwin' 
 							? 'open': process.platform == 'win32'
 							? 'start': 'xdg-open');
 			require('child_process').exec(start + ' ' + url);
@@ -325,7 +322,7 @@ function main() {
 			}
 		}
 
-
+		
 	})
 
 	} else {
@@ -372,7 +369,7 @@ function main() {
 		}
 	})
 	}
-
+	
 }
 
 function apiInit(CATALOGS, PREFIXES, i) {
@@ -1367,4 +1364,3 @@ function logreq(req,extra) {
 	console.log(ds() + "Request from " + addr + ": " + "http://"
 				+ req.headers.host + req.originalUrl + " " + extra);
 }
-//AA

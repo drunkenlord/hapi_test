@@ -3,10 +3,13 @@ import os
 import sys
 import argparse
 from datetime import datetime
+import time
+
+timer_begin = time.time()
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--start',default='1964-01-01T00:00:00.000000000Z')
-parser.add_argument('--stop',default='1964-01-02T00:00:00.000000000Z')
+parser.add_argument('--start',default='2020-01-01T00:00:00.000000000Z')
+parser.add_argument('--stop',default='2020-01-02T00:00:00.000000000Z')
 args = vars(parser.parse_args())
 
 start, stop = args['start'][0:26], args['stop'][0:26]
@@ -43,8 +46,27 @@ if not os.path.exists(filename):
 
 file = open(filename, "r")
 
+start_list = startp.split()
+
+def differ_days(date1, date2):
+    a = date1
+    b = date2
+    return (a-b).days
+
+end_year = int(start_list[0])
+#Calculating number of days from 1964 to specified year
+days = differ_days((datetime(end_year,1,1)), datetime(1964,1,1))
+
+#Adding the additional days specified
+days = days + int(start_list[1])
+#Since each day prints out 24 lines each of 203 
+start_pointer = days * 24 * 203
+file.seek(start_pointer, 0)
+
+
+
 # The following avoids the use of date parsing by using fact that
-# ASCII values for time in the file are monotonically increasing 
+# ASCII values for time in the file are monotonically increasing
 # so that >= and < can be used to find start and stop times.
 n = 0
 for line in file:
@@ -52,7 +74,14 @@ for line in file:
     if n > 0 and timestr >= startp and timestr < stopp:
         data = re.sub(r"\s+", ",", line[14:-1].strip())
         sys.stdout.write('%s-%03dT%02dZ,%s\n' % (line[1:5],int(line[6:9]),int(line[10:12]),data))
+
     if n > 0 and timestr >= stopp:
         sys.stdout.flush()
         break
     n = n + 1
+
+# end time
+timer_end = time.time()
+
+# total time taken
+print(f"Runtime of the program is {timer_end - timer_begin}")

@@ -17,5 +17,5 @@
 			{"url": "data/?id=dataset1&parameters=vector&time.min=1970-12-31T23:50Z&time.max=1971-01-01Z", "Nlines": 10}
 		]
 	},
-	"catalog" : "$HAPISERVERPATH/metadata/Example_Catalogs/Example0_catalog.json"
+	"catalog" : "$HAPISERVERPATH/metadata/Example_Catalogs/Example0_Catalog.json"
 }
